@@ -2,7 +2,6 @@
 
 import { motion } from "framer-motion"
 import Image from "next/image"
-import Particles from "./ui/Particles"
 
 const SkillsSection = () => {
   const skillsData = [
@@ -17,12 +16,12 @@ const SkillsSection = () => {
       category: "Technologies & Tools",
       skills: [
         { name: "Machine\nLearning", image: "/image/ml.png" },
-        { name: "Deep\nLearning", image: "/image/ml.png" },
-        { name: "LLMs", image: "/image/ml.png" },
-        { name: "Generative\nAI", image: "/image/ml.png" },
-        { name: "Flask", image: "/image/python.png" },
-        { name: "FastAPI", image: "/image/python.png" },
-        { name: "TensorFlow", image: "/image/ml.png" },
+        { name: "Deep\nLearning", image: "/image/dl.png" },
+        { name: "LLMs", image: "/image/llm.png" },
+        { name: "Generative\nAI", image: "/image/ai.png" },
+        // { name: "Flask", image: "/image/fl.png" },
+        { name: "FastAPI", image: "/image/fa.png" },
+        { name: "TensorFlow", image: "/image/tf.png" },
       ],
     },
     {
@@ -38,8 +37,9 @@ const SkillsSection = () => {
       category: "Others",
       skills: [
         { name: "MySQL", image: "/image/mysql.png" },
+        { name: "MongoDB", image: "/image/mongodb.png" },
         { name: "GitHub", image: "/image/github.png" },
-        { name: "Statistics", image: "/image/ml.png" },
+        { name: "Statistics", image: "/image/st.png" },
       ],
     },
   ]
@@ -74,21 +74,6 @@ const SkillsSection = () => {
 
   return (
     <section id="skills" className="min-h-screen bg-black text-white py-32 px-6 md:px-20 relative overflow-hidden">
-      {/* Particles Background */}
-      <div className="absolute inset-0 w-full h-full">
-        <Particles
-          particleCount={150}
-          particleSpread={8}
-          speed={0.05}
-          particleColors={["#00ffee", "#ffffff", "#0099cc"]}
-          moveParticlesOnHover={true}
-          particleHoverFactor={0.5}
-          alphaParticles={true}
-          particleBaseSize={60}
-          sizeRandomness={0.8}
-          cameraDistance={15}
-        />
-      </div>
       
       <div className="max-w-7xl mx-auto relative z-10">
         <motion.h2

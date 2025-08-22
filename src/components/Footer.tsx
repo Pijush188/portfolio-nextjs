@@ -2,7 +2,6 @@
 
 import { motion } from "framer-motion"
 import { Github, Linkedin, Facebook, Instagram } from "lucide-react"
-import Particles from "./ui/Particles"
 
 const Footer = () => {
   const socialLinks = [
@@ -29,21 +28,6 @@ const Footer = () => {
 
   return (
     <footer className="bg-gray-900 text-white py-16 px-6 md:px-20 relative overflow-hidden">
-      {/* Particles Background */}
-      <div className="absolute inset-0 w-full h-full">
-        <Particles
-          particleCount={80}
-          particleSpread={6}
-          speed={0.02}
-          particleColors={["#00ffee", "#ffffff", "#999999"]}
-          moveParticlesOnHover={false}
-          alphaParticles={true}
-          particleBaseSize={50}
-          sizeRandomness={0.6}
-          cameraDistance={14}
-        />
-      </div>
-      
       <div className="max-w-6xl mx-auto relative z-10">
         {/* Social Links */}
         <motion.div
@@ -103,7 +87,7 @@ const Footer = () => {
           transition={{ delay: 0.6, duration: 0.6 }}
           viewport={{ once: true }}
         >
-          <p>&copy; 2025 Pijush Das. All rights reserved.</p>
+          <p>Thanking You For Visiting</p>
         </motion.div>
       </div>
     </footer>

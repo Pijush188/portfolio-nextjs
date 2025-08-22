@@ -5,7 +5,6 @@ import { Github, ExternalLink } from "lucide-react"
 import Image from "next/image"
 import { Card } from "@/components/ui/card"
 import { useState } from "react"
-import Particles from "./ui/Particles"
 
 const ProjectsSection = () => {
   const [hoveredProject, setHoveredProject] = useState<number | null>(null)
@@ -75,22 +74,7 @@ const ProjectsSection = () => {
   }
 
   return (
-    <section id="projects" className="min-h-screen bg-[#131313] text-white py-32 px-6 md:px-20 relative overflow-hidden">
-      {/* Particles Background */}
-      <div className="absolute inset-0 w-full h-full">
-        <Particles
-          particleCount={120}
-          particleSpread={12}
-          speed={0.03}
-          particleColors={["#00ffee", "#ffffff", "#666666"]}
-          moveParticlesOnHover={true}
-          particleHoverFactor={0.3}
-          alphaParticles={true}
-          particleBaseSize={80}
-          sizeRandomness={1.0}
-          cameraDistance={18}
-        />
-      </div>
+    <section id="projects" className="min-h-screen bg-gray-900 text-white py-32 px-6 md:px-20 relative overflow-hidden">
       
       <div className="max-w-7xl mx-auto relative z-10">
         <motion.h2

@@ -8,7 +8,6 @@ import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import emailjs from "@emailjs/browser"
-import Particles from "./ui/Particles"
 
 const ContactSection = () => {
   const [formData, setFormData] = useState({
@@ -91,22 +90,6 @@ const ContactSection = () => {
 
   return (
     <section id="contact" className="min-h-screen bg-black text-white py-32 px-6 md:px-20 relative overflow-hidden">
-      {/* Particles Background */}
-      <div className="absolute inset-0 w-full h-full">
-        <Particles
-          particleCount={130}
-          particleSpread={9}
-          speed={0.06}
-          particleColors={["#00ffee", "#ffffff", "#0099cc"]}
-          moveParticlesOnHover={true}
-          particleHoverFactor={0.6}
-          alphaParticles={true}
-          particleBaseSize={65}
-          sizeRandomness={0.7}
-          cameraDistance={17}
-        />
-      </div>
-      
       <div className="max-w-4xl mx-auto relative z-10">
         <motion.h2
           className="text-6xl md:text-8xl font-bold text-center mb-12"

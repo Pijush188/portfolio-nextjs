@@ -131,7 +131,7 @@ const HeroSection = () => {
 
           {/* CTA Buttons */}
           <motion.div 
-            className="flex flex-col sm:flex-row gap-4 pointer-auto"
+            className="flex flex-row gap-4 pointer-auto justify-center items-center mt-8 md:mt-12 lg:mt-16 xl:mt-20 flex-wrap"
             initial={{ opacity: 0, y: 50 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 1, duration: 0.8 }}
@@ -165,7 +165,7 @@ const HeroSection = () => {
           transition={{ duration: 0.8 }}
         >
           <motion.div
-            className="relative w-64 h-64 md:w-72 md:h-72 lg:w-80 lg:h-80 xl:w-96 xl:h-96"
+            className="relative w-64 h-64 md:w-72 md:h-72 lg:w-80 lg:h-80 xl:w-96 xl:h-96 mt-8 sm:mt-12"
             whileHover={{ scale: 1.05 }}
             transition={{ duration: 0.3 }}
           >
