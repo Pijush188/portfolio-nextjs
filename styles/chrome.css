@@ -1,0 +1,29 @@
+/* ---------- chrome ---------- */
+.topbar{position:fixed;top:0;left:0;right:0;z-index:30;display:flex;justify-content:space-between;align-items:center;padding:calc(18px + env(safe-area-inset-top,0px)) clamp(20px,4vw,44px) 18px}
+.mark{font-weight:800;font-size:15px;letter-spacing:-.02em;display:flex;gap:10px;align-items:center}
+.mark em{font-style:normal;width:30px;height:30px;border:1px solid var(--line);border-radius:50%;display:grid;place-items:center;font-size:11px;background:var(--glass);backdrop-filter:blur(8px)}
+.menu-btn{display:flex;align-items:center;gap:10px;padding:9px 14px 9px 16px;border:1px solid var(--line);border-radius:999px;background:var(--glass);backdrop-filter:blur(10px);font-family:var(--mono);font-size:11px;letter-spacing:.14em;transition:background .3s}
+.menu-btn:hover{background:rgba(255,255,255,.12)}
+.burger{width:16px;height:9px;position:relative}
+.burger::before,.burger::after{content:"";position:absolute;left:0;right:0;height:1.5px;background:var(--ink);transition:transform .4s}
+.burger::before{top:0}.burger::after{bottom:0}
+.menu-open .burger::before{transform:translateY(3.75px) rotate(45deg)}
+.menu-open .burger::after{transform:translateY(-3.75px) rotate(-45deg)}
+
+.dots{position:fixed;right:clamp(14px,2.2vw,30px);top:50%;transform:translateY(-50%);z-index:30;display:flex;flex-direction:column;gap:14px}
+.dots a{width:6px;height:6px;border-radius:50%;background:var(--ink-3);transition:all .4s;position:relative}
+.dots a.on{background:var(--ink);transform:scale(1.35)}
+.dots a span{position:absolute;right:16px;top:50%;transform:translateY(-50%);white-space:nowrap;opacity:0;transition:opacity .3s}
+.dots a:hover span{opacity:1}
+
+/* menu overlay */
+#menu{position:fixed;inset:0;z-index:25;background:rgba(0,0,0,.82);backdrop-filter:blur(18px);display:flex;flex-direction:column;justify-content:center;padding:0 clamp(24px,8vw,120px);opacity:0;pointer-events:none;transition:opacity .5s}
+.menu-open #menu{opacity:1;pointer-events:auto}
+#menu nav a{display:block;font-weight:800;letter-spacing:-.05em;font-size:clamp(52px,10vw,132px);line-height:1;color:var(--ink-3);transition:color .3s,transform .5s;transform:translateY(30px)}
+.menu-open #menu nav a{transform:none}
+#menu nav a:hover{color:var(--ink)}
+#menu nav a sup{font-family:var(--mono);font-size:12px;letter-spacing:.1em;vertical-align:top;margin-left:10px;font-weight:400}
+.menu-links{display:flex;gap:26px;margin-top:48px;flex-wrap:wrap}
+.menu-links a{color:var(--ink-2)}
+.menu-links a:hover{color:var(--ink)}
+

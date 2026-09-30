@@ -1,0 +1,16 @@
+/* contact */
+#contact{display:flex;align-items:center;padding:14vh 0 0;flex-direction:column;justify-content:center}
+.contact-box{border-left:1px solid var(--line);padding-left:clamp(16px,3vw,32px);max-width:620px}
+.contact-box p{color:var(--ink-2);max-width:460px}
+.btns{display:flex;gap:14px;flex-wrap:wrap;margin-top:34px}
+.btn{display:inline-flex;align-items:center;gap:14px;padding:14px 22px;border-radius:999px;font-weight:600;font-size:14px;transition:transform .3s,background .3s}
+.btn svg{width:18px;height:18px;transition:transform .3s}
+.btn:hover svg{transform:translateX(4px)}
+.btn-solid{background:var(--ink);color:#000}
+.btn-ghost{border:1px solid var(--line);background:var(--glass);backdrop-filter:blur(8px)}
+.btn-ghost:hover{background:rgba(255,255,255,.1)}
+.foot-links{display:flex;gap:26px;margin-top:44px}
+.foot-links a:hover{color:var(--ink)}
+footer{width:100%;padding:60px 0 28px}
+footer .wrap{display:flex;justify-content:space-between;gap:20px;padding-top:20px;border-top:1px solid var(--line);flex-wrap:wrap}
+

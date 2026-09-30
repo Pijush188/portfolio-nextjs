@@ -1,0 +1,11 @@
+/* reveal (one scroll moment per section heading) */
+.rv{opacity:0;transform:translateY(26px);transition:opacity 1s,transform 1s cubic-bezier(.2,.8,.2,1)}
+.rv.in{opacity:1;transform:none}
+
+/* custom cursor */
+#cursor{position:fixed;left:0;top:0;z-index:90;width:34px;height:34px;margin:-17px 0 0 -17px;border:1px solid rgba(255,255,255,.55);border-radius:50%;pointer-events:none;transition:width .35s,height .35s,margin .35s,background .35s,border-color .35s;display:grid;place-items:center;mix-blend-mode:difference}
+#cursor span{font-family:var(--mono);font-size:9px;letter-spacing:.14em;opacity:0;transition:opacity .2s;color:#fff}
+#cursor.big{width:74px;height:74px;margin:-37px 0 0 -37px;background:#fff;border-color:#fff}
+#cursor.big span{opacity:1;color:#000}
+@media (hover:none),(pointer:coarse){#cursor{display:none}}
+
