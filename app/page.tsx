@@ -3,6 +3,7 @@ import { CaseDetail } from "@/components/experience/CaseDetail";
 import { CasePeek } from "@/components/experience/CasePeek";
 import { Backdrop } from "@/components/layout/Backdrop";
 import { Cursor } from "@/components/layout/Cursor";
+import { CursorTrail } from "@/components/layout/CursorTrail";
 import { Legibility } from "@/components/layout/Legibility";
 import { Loader } from "@/components/layout/Loader";
 import { MenuOverlay } from "@/components/layout/MenuOverlay";
@@ -43,6 +44,7 @@ export default function Home() {
       <SkillPeek />
       <ProjectDetail />
       <CaseDetail />
+      <CursorTrail />
       <Cursor />
       <Legibility />
     </PortfolioProvider>

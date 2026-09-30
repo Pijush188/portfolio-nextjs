@@ -27,3 +27,5 @@
 .menu-links a{color:var(--ink-2)}
 .menu-links a:hover{color:var(--ink)}
 
+.menu-credit{position:absolute;left:clamp(24px,8vw,120px);bottom:calc(24px + env(safe-area-inset-bottom,0px));font-size:9px;letter-spacing:.14em;opacity:.55}
+.menu-credit a:hover{color:var(--ink)}

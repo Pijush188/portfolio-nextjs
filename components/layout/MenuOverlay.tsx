@@ -24,6 +24,11 @@ export function MenuOverlay() {
         <ExternalLink href={GITHUB}>GitHub</ExternalLink>
         <a href={EMAIL}>Email</a>
       </div>
+      {/* Required attribution for the CC BY 4.0 planet textures used in the scene. */}
+      <p className="mono menu-credit">
+        Planet textures: <ExternalLink href="https://www.solarsystemscope.com/textures/">Solar System Scope</ExternalLink>,{" "}
+        <ExternalLink href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</ExternalLink>
+      </p>
     </div>
   );
 }
