@@ -66,11 +66,10 @@ export function ProjectDetail() {
 
   return (
     <div
-      id="detail"
-      className={detailOpen ? "on" : undefined}
+      className={`detail${detailOpen ? " on" : ""}`}
       role="dialog"
       aria-modal="true"
-      aria-labelledby="dTitle"
+      aria-labelledby="projectTitle"
       onClick={(e) => {
         const t = e.target as HTMLElement;
         if (t === e.currentTarget || t.classList.contains("d-inner")) closeDetail();
@@ -83,7 +82,7 @@ export function ProjectDetail() {
             Back to projects
           </button>
           <span className="mono">{p.kind}</span>
-          <h2 className="d-title" id="dTitle">
+          <h2 className="d-title" id="projectTitle">
             {p.name}
           </h2>
           <p className="d-desc">{p.desc}</p>

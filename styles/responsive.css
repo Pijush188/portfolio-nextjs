@@ -6,7 +6,7 @@
   .work-head{flex-direction:column;align-items:start}
 }
 @media (hover:none),(pointer:coarse),(max-width:720px){
-  #peek{display:none}
+  .peek{display:none}
   .proj-row{grid-template-columns:34px 1fr 20px}
   .proj-live{display:none}
   .proj-inline{display:block;padding:0 0 24px 48px}
@@ -16,6 +16,30 @@
 @media (max-width:520px){
   .proj-inline{padding-left:0}
   .stack li{grid-template-columns:100px 1fr}
+}
+/* added sections */
+/* desktop: keep text left of the section's planet, which owns roughly the right 40% */
+@media (min-width:821px){
+  .work-list,.work-head,.skill-list,.roles,.xp-note,.edu-grid,.contact-box{max-width:min(820px,calc(60vw - 80px))}
+  .edu-grid{grid-template-columns:1fr;gap:48px}
+}
+@media (max-width:820px){
+  .edu-grid{grid-template-columns:1fr}
+  .d-inner.case-inner{grid-template-columns:1fr}
+  .case-side{position:static}
+  .roles li{grid-template-columns:auto 1fr;row-gap:4px}
+  .roles li>.mono{grid-column:1/-1}
+}
+@media (hover:none),(pointer:coarse),(max-width:720px){
+  .case-list .proj-row{grid-template-columns:48px 1fr 20px}
+}
+@media (max-width:560px){
+  .skill-btn{grid-template-columns:62px 1fr 18px;gap:10px}
+  .skill-orbit{font-size:9px;letter-spacing:.1em;white-space:nowrap}
+  .degree{flex-direction:column;align-items:flex-start}
+  .degree-score{align-items:flex-start}
+  .school li{grid-template-columns:1fr auto;row-gap:4px}
+  .school li>.mono{grid-column:1/-1}
 }
 @media (prefers-reduced-motion:reduce){
   *,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important}

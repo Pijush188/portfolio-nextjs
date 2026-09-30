@@ -6,7 +6,7 @@ import { pointer } from "@/lib/pointer";
 
 /** Lagging ring cursor that grows into a "VIEW" badge while a project is hovered. */
 export function Cursor() {
-  const { active } = usePortfolio();
+  const { active, activeCase } = usePortfolio();
   const ref = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -25,8 +25,8 @@ export function Cursor() {
   }, []);
 
   return (
-    <div id="cursor" ref={ref} className={active >= 0 ? "big" : undefined}>
-      <span>VIEW</span>
+    <div id="cursor" ref={ref} className={active >= 0 || activeCase >= 0 ? "big" : undefined}>
+      <span>{activeCase >= 0 ? "OPEN" : "VIEW"}</span>
     </div>
   );
 }

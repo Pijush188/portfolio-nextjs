@@ -1,20 +1,42 @@
 import * as THREE from "three";
 import { ease } from "@/lib/ease";
+import { lights } from "@/lib/lightField";
 import { pointer } from "@/lib/pointer";
 import { SECTIONS } from "@/lib/site";
 import { sunFragment, sunVertex } from "./sunShader";
+import { createWorld, type WorldSpec } from "./worlds";
 
 // Match the original three r128 output: no colour management, linear output.
 THREE.ColorManagement.enabled = false;
 
-/** Scene keyframes indexed by section progress 0..3 (hero, about, work, contact). */
+/**
+ * Galaxy keyframes, one per section. The galaxy owns the hero; after that it steps
+ * back into a faint backdrop so each section's single world has the stage.
+ */
 const KF = [
-  { tilt: 1.08, gx: 0, gy: 0, gz: 0, gs: 1, go: 1, sx: 6, sy: -3, sz: -10, ss: 0 },
-  { tilt: 0.6, gx: 3.1, gy: 0.1, gz: -1.5, gs: 1.05, go: 0.85, sx: 6, sy: -3, sz: -10, ss: 0 },
-  { tilt: 0.9, gx: 3.6, gy: 0.6, gz: -7, gs: 0.9, go: 0.45, sx: 2.6, sy: -0.6, sz: -2, ss: 0.35 },
-  { tilt: 1.1, gx: 5, gy: 1.2, gz: -12, gs: 0.8, go: 0.25, sx: 2.2, sy: -0.3, sz: 0.2, ss: 0.95 },
+  { tilt: 1.08, gx: 0, gy: 0, gz: 0, gs: 1, go: 1, co: 1 },
+  { tilt: 0.7, gx: -4, gy: 1, gz: -11, gs: 0.95, go: 0.4, co: 0.35 },
+  { tilt: 0.8, gx: -5, gy: 2.2, gz: -17, gs: 0.9, go: 0.2, co: 0.15 },
+  { tilt: 0.9, gx: -5.5, gy: 2.6, gz: -19, gs: 0.9, go: 0.18, co: 0.12 },
+  { tilt: 1, gx: -6, gy: 3, gz: -20, gs: 0.9, go: 0.18, co: 0.12 },
+  { tilt: 1.1, gx: -6.2, gy: 3.3, gz: -21, gs: 0.9, go: 0.18, co: 0.12 },
+  { tilt: 1.15, gx: -6.4, gy: 3.5, gz: -22, gs: 0.85, go: 0.18, co: 0.12 },
 ];
 type Frame = (typeof KF)[number];
+
+/**
+ * One world per section after the hero (about … education); contact ends on the star.
+ * Only one is on stage at a time: the current one drifts up and out, then the next rises in.
+ */
+const WORLDS: WorldSpec[] = [
+  { a: "#ffb45c", b: "#7a3f22", atmo: "#ffcf8f", type: 0, tilt: 0.35 }, // about: warm gas giant
+  { a: "#173f86", b: "#7fb3ff", atmo: "#9cc4ff", type: 2, tilt: -0.3 }, // experience: ocean world
+  { a: "#e3a2c6", b: "#3d1b36", atmo: "#f0a8d0", type: 1, tilt: 0.2 }, // projects: rocky rose world
+  { a: "#15645c", b: "#9fd8c8", atmo: "#b5f0e0", type: 2, tilt: 0.45 }, // skills: teal world
+  { a: "#ffd7a3", b: "#9a6f52", atmo: "#ffe7c4", type: 0, ring: true, tilt: -0.4 }, // education: ringed giant
+];
+const FIRST_WORLD = 1; // section index of the first world
+const STAR = SECTIONS.length - 1; // contact
 
 function lerpKF(p: number): Frame {
   const i = Math.min(Math.floor(p), KF.length - 2);
@@ -29,6 +51,11 @@ function lerpKF(p: number): Frame {
   return o;
 }
 
+const smooth = (a: number, b: number, x: number) => {
+  const t = Math.min(Math.max((x - a) / (b - a), 0), 1);
+  return t * t * (3 - 2 * t);
+};
+
 function glowTexture(inner: string, outer: string) {
   const c = document.createElement("canvas");
   c.width = c.height = 128;
@@ -42,7 +69,7 @@ function glowTexture(inner: string, outer: string) {
   return new THREE.CanvasTexture(c);
 }
 
-/** Continuous 0..3 progress through the sections, measured at the viewport centre. */
+/** Continuous 0..N-1 progress through the sections, measured at the viewport centre. */
 function sectionProgress(secs: HTMLElement[]) {
   const c = scrollY + innerHeight * 0.5;
   const centers = secs.map((el, i) =>
@@ -153,7 +180,7 @@ export function createScene(canvas: HTMLCanvasElement, reduce: boolean): SceneHa
   scene.add(stars);
   disposables.push(sg, starMat);
 
-  // sun
+  // the star for contact
   const sunMat = new THREE.ShaderMaterial({
     uniforms: { uT: { value: 0 } },
     vertexShader: sunVertex,
@@ -171,8 +198,31 @@ export function createScene(canvas: HTMLCanvasElement, reduce: boolean): SceneHa
   const sunGlow = new THREE.Sprite(glowMat);
   sun.add(sunGlow);
   sunGlow.scale.set(5.2, 5.2, 1);
-  scene.add(sun);
+  const sunHolder = new THREE.Group();
+  sunHolder.add(sun);
+  scene.add(sunHolder);
   disposables.push(sunMat, sunGeo, glowTex, glowMat);
+
+  // one world per section
+  const worlds = WORLDS.map((spec) => {
+    const w = createWorld(spec, dot);
+    scene.add(w.group);
+    disposables.push(...w.disposables);
+    return w;
+  });
+  // [holder, section index, size factor]
+  const stage: { obj: THREE.Object3D; section: number; size: number; tick(t: number, dim: number): void }[] = [
+    ...worlds.map((w, i) => ({ obj: w.group, section: FIRST_WORLD + i, size: WORLDS[i].ring ? 0.8 : 1, tick: w.update })),
+    {
+      obj: sunHolder,
+      section: STAR,
+      size: 0.75,
+      tick: (t: number) => {
+        sun.rotation.y = t * 0.05;
+        sunMat.uniforms.uT.value = t;
+      },
+    },
+  ];
 
   let mob = innerWidth < 720;
   const onResize = () => {
@@ -183,16 +233,32 @@ export function createScene(canvas: HTMLCanvasElement, reduce: boolean): SceneHa
   };
   addEventListener("resize", onResize);
 
+  // Project the bright objects to screen space so page text can adapt its halo.
+  const tmp = new THREE.Vector3(),
+    right = new THREE.Vector3();
+  const toScreen = (world: THREE.Vector3, worldR: number, i: number) => {
+    tmp.copy(world).project(camera);
+    if (tmp.z > 1) return; // behind the camera
+    const x = ((tmp.x + 1) / 2) * innerWidth,
+      y = ((1 - tmp.y) / 2) * innerHeight;
+    tmp.copy(world).addScaledVector(right, worldR).project(camera);
+    const r = Math.abs(((tmp.x + 1) / 2) * innerWidth - x);
+    if (r > 1 && i > 0.01) lights.push({ x, y, r, i });
+  };
+
   const secs = SECTIONS.map((s) => document.getElementById(s.id)).filter((el): el is HTMLElement => !!el);
   let sceneProgress = 0,
     raf = 0;
+  const Z = -2.5; // depth of the stage
 
   const frame = (now: number) => {
     raf = requestAnimationFrame(frame);
     sceneProgress += (sectionProgress(secs) - sceneProgress) * 0.06;
-    const k = lerpKF(sceneProgress),
+    const p = sceneProgress;
+    const k = lerpKF(p),
       t = Math.max(now - t0, 0) / 1000;
     const intro = Math.min(t / 3.2, 1);
+
     galaxy.rotation.x = k.tilt + (1 - ease(intro)) * 0.46;
     galaxy.rotation.y = t * (reduce ? 0.004 : 0.035);
     galaxy.rotation.z = 0.18;
@@ -202,11 +268,34 @@ export function createScene(canvas: HTMLCanvasElement, reduce: boolean): SceneHa
     const gs = k.gs * (0.35 + 0.65 * ease(intro)) * (mob ? 0.78 : 1);
     galaxy.scale.set(gs, gs, gs);
     galaxyMat.opacity = k.go;
-    sun.position.set(mob ? k.sx * 0.4 : k.sx, mob ? k.sy - 1.2 : k.sy, k.sz);
-    sun.scale.setScalar(Math.max(k.ss, 0.0001));
-    sun.visible = k.ss > 0.01;
-    sun.rotation.y = t * 0.05;
-    sunMat.uniforms.uT.value = t;
+    coreMat.opacity = k.co;
+
+    // The stage: frame the current world big on the right. Between sections the current one
+    // rises out of view before the next one rises in, so only one is ever on screen.
+    const halfH = (camera.position.z - Z) * Math.tan(THREE.MathUtils.degToRad(camera.fov / 2));
+    const halfW = halfH * camera.aspect;
+    const radius = mob ? Math.min(halfW * 0.5, halfH * 0.36) : Math.min(halfH * 0.58, halfW * 0.34);
+    const cx = mob ? halfW * 0.35 : Math.min(halfW * 0.52, halfW - radius * 1.12);
+    lights.length = 0;
+    right.setFromMatrixColumn(camera.matrixWorld, 0);
+    toScreen(galaxy.position, 5.2 * gs * 0.95, 0.6 * k.go);
+    toScreen(galaxy.position, 2.1 * gs * 0.6, 0.95 * k.co);
+
+    for (const s of stage) {
+      const d = p - s.section;
+      const out = smooth(0.06, 0.48, Math.abs(d)); // 0 on stage, 1 fully gone
+      s.obj.visible = out < 1;
+      if (!s.obj.visible) continue;
+      const dir = d >= 0 ? 1 : -1; // leaving upward, arriving from below
+      const r = radius * s.size * (1 - 0.18 * out);
+      s.obj.position.set(cx + out * radius * 0.6, dir * out * (halfH + radius * 1.4), Z - out * 1.5);
+      s.obj.scale.setScalar(r);
+      s.obj.rotation.z = -dir * out * 0.25;
+      s.tick(reduce ? 0 : t, mob ? 0.6 : 1);
+      toScreen(s.obj.position, r * 1.05, s.section === STAR ? 0.95 : 0.5);
+      if (s.section === STAR) toScreen(s.obj.position, r * 2.6, 0.45);
+    }
+
     stars.rotation.y = t * 0.004 + mxN * 0.05;
     stars.rotation.x = myN * 0.04;
     camera.position.x += (mxN * 0.5 - camera.position.x) * 0.04;
@@ -223,6 +312,7 @@ export function createScene(canvas: HTMLCanvasElement, reduce: boolean): SceneHa
     },
     dispose() {
       cancelAnimationFrame(raf);
+      lights.length = 0;
       removeEventListener("resize", onResize);
       disposables.forEach((d) => d.dispose());
       renderer.dispose();

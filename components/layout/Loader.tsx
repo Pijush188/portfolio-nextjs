@@ -6,7 +6,7 @@ import { PROJECTS } from "@/lib/projects";
 import { ease } from "@/lib/ease";
 import { prefersReducedMotion } from "@/lib/useMedia";
 
-const STAGES = ["Scattering stars", "Shaping the galaxy", "Framing projects", "Ready"];
+const STAGES = ["Scattering stars", "Wiring the graph", "Warming up models", "Ready"];
 
 export function Loader() {
   const { markReady } = usePortfolio();
@@ -70,7 +70,7 @@ export function Loader() {
         <span className="mono">Edition 2026</span>
       </div>
       <div className="l-mid">
-        <span className="mono">Frontend / React / Machine learning</span>
+        <span className="mono">Data science / LLMs / Knowledge graphs</span>
         <h1 className="l-name">
           <span>
             <i>PIJUSH</i>

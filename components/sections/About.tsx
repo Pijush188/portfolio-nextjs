@@ -1,15 +1,9 @@
 "use client";
 
-import { ArrowUpRight } from "@/components/ui/icons";
 import { ExternalLink } from "@/components/ui/ExternalLink";
-import { GITHUB } from "@/lib/site";
+import { ArrowUpRight } from "@/components/ui/icons";
+import { GITHUB, LINKEDIN } from "@/lib/site";
 import { useReveal } from "@/lib/useReveal";
-
-const STACK = [
-  ["Frontend", "JavaScript, React, GSAP, HTML & CSS"],
-  ["Backend", "Java, Python"],
-  ["ML & IoT", "Image classification, smart home automation"],
-];
 
 export function About() {
   const [ref, shown] = useReveal<HTMLDivElement>();
@@ -17,33 +11,30 @@ export function About() {
     <section id="about">
       <div className="wrap">
         <div ref={ref} className={`about-grid rv${shown ? " in" : ""}`}>
-          <span className="mono">About / Student developer</span>
+          <span className="mono">About / Junior Data Scientist</span>
           <h2 className="h2">
-            Learning by building,
+            I pair LLMs with
             <br />
-            shipping what I learn.
+            graphs and search.
           </h2>
           <div className="about-cols">
             <p>
-              I&apos;m a student at <strong>Meghnad Saha Institute of Technology</strong>, Kolkata. I learn a stack by
-              rebuilding things I admire, down to the scroll timing.
+              I&apos;m a Junior Data Scientist at <strong>Calsoft</strong> in Kolkata, where I started as an AI/ML intern in
+              early 2025. Before that I earned a B.Tech in IT at <strong>Meghnad Saha Institute of Technology</strong>.
             </p>
             <p>
-              My work spans pixel-careful frontend clones, React apps wired to real APIs, and a deep-learning model that
-              reads crop disease from a single leaf photo.
+              I work where LLMs meet structure: vision models that turn engineering drawings into graphs, root-cause
+              engines that walk a network topology, and assistants that remember a conversation and can undo their own
+              changes.
             </p>
           </div>
-          <ul className="stack">
-            {STACK.map(([k, v]) => (
-              <li key={k}>
-                <span className="mono">{k}</span>
-                <span>{v}</span>
-              </li>
-            ))}
-          </ul>
-          <div className="about-cta">
+          <div className="about-cta btns">
+            <ExternalLink className="pill" href={LINKEDIN}>
+              LinkedIn
+              <ArrowUpRight />
+            </ExternalLink>
             <ExternalLink className="pill" href={GITHUB}>
-              Visit GitHub
+              GitHub
               <ArrowUpRight />
             </ExternalLink>
           </div>

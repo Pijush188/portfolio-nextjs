@@ -1,8 +1,8 @@
 "use client";
 
-import { ArrowRight } from "@/components/ui/icons";
 import { ExternalLink } from "@/components/ui/ExternalLink";
-import { EMAIL, GITHUB } from "@/lib/site";
+import { ArrowRight } from "@/components/ui/icons";
+import { EMAIL, EMAIL_ADDRESS, GITHUB, LINKEDIN } from "@/lib/site";
 import { useReveal } from "@/lib/useReveal";
 import { Footer } from "./Footer";
 
@@ -12,29 +12,29 @@ export function Contact() {
     <section id="contact">
       <div className="wrap">
         <div ref={ref} className={`contact-box rv${shown ? " in" : ""}`}>
-          <span className="mono">Open to internships / Collaboration</span>
+          <span className="mono">Contact / Always up for a good problem</span>
           <h2 className="h2">
-            Got something
+            Got messy data
             <br />
-            to build?
+            to untangle?
           </h2>
           <p>
-            I&apos;m looking for internships and open-source projects where I can ship real interfaces with a team. Code,
-            questions and ideas all start here.
+            I like problems where an LLM alone isn&apos;t enough: graphs, vision and retrieval working together. If
+            you&apos;re building something like that, or want to talk about it, write to me.
           </p>
           <div className="btns">
-            <ExternalLink className="btn btn-solid" href={GITHUB}>
-              Follow on GitHub
-              <ArrowRight />
-            </ExternalLink>
-            <a className="btn btn-ghost" href={EMAIL}>
+            <a className="btn btn-solid" href={EMAIL}>
               Email me
               <ArrowRight />
             </a>
+            <ExternalLink className="btn btn-ghost" href={LINKEDIN}>
+              Connect on LinkedIn
+              <ArrowRight />
+            </ExternalLink>
           </div>
           <div className="foot-links mono">
+            <a href={EMAIL}>{EMAIL_ADDRESS}</a>
             <ExternalLink href={GITHUB}>GitHub</ExternalLink>
-            <ExternalLink href={`${GITHUB}?tab=repositories`}>Repositories</ExternalLink>
           </div>
         </div>
       </div>

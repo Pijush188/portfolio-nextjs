@@ -1,0 +1,63 @@
+/* skills: six rows, one per planet; hover shows the full group in a trailing card */
+#skills{padding:18vh 0 12vh}
+.skill-list{list-style:none;max-width:760px;border-left:1px solid var(--line);padding-left:clamp(14px,3vw,30px)}
+.skill-row{position:relative;border-bottom:1px solid var(--line)}
+.skill-row:first-child{border-top:1px solid var(--line)}
+.skill-row::after{content:"";position:absolute;left:0;right:0;bottom:-1px;height:1px;background:var(--c);transform:scaleX(0);transform-origin:left;transition:transform .7s cubic-bezier(.2,.8,.2,1)}
+.skill-row.active::after{transform:scaleX(1)}
+.skill-btn{display:grid;grid-template-columns:86px 1fr 24px;align-items:center;gap:14px;width:100%;padding:clamp(16px,2.4vw,22px) 0;text-align:left}
+.skill-orbit{color:var(--c)}
+.skill-name{display:block;font-weight:700;font-size:clamp(22px,2.8vw,32px);letter-spacing:-.035em;line-height:1.1;transition:transform .6s cubic-bezier(.2,.8,.2,1),color .4s}
+.skill-sub{display:block;margin-top:8px;font-family:var(--mono);font-size:13px;letter-spacing:.06em;line-height:1.5;color:var(--ink-3)}
+.skill-dot{justify-self:end;width:12px;height:12px;border-radius:50%;background:var(--c);transition:transform .4s,box-shadow .4s}
+.skill-row.active .skill-dot{transform:scale(1.4);box-shadow:0 0 18px var(--c)}
+.skill-list.hovering .skill-name{color:var(--ink-3)}
+.skill-list.hovering .skill-row.active .skill-name{color:var(--ink);transform:translateX(10px)}
+
+/* touch: rows open in place */
+.skill-inline{display:grid;grid-template-rows:0fr;transition:grid-template-rows .55s cubic-bezier(.2,.8,.2,1)}
+.skill-inline>div{overflow:hidden;min-height:0}
+.skill-row.active .skill-inline{grid-template-rows:1fr}
+.skill-inline p{color:var(--ink-2);font-size:14px;margin-bottom:12px}
+.skill-chips{list-style:none;display:flex;flex-wrap:wrap;gap:7px;margin-bottom:14px}
+.skill-chips li{padding:5px 11px;border:1px solid color-mix(in srgb,var(--c) 45%,transparent);border-radius:999px;font-size:13px}
+.skill-inline .mono{display:block;padding-bottom:22px;font-size:10px}
+
+/* hover card */
+.skill-peek{width:clamp(280px,24vw,340px)}
+.skill-card{padding:20px 20px 18px;border-radius:14px;background:rgba(14,14,16,.93);border:1px solid color-mix(in srgb,var(--c) 40%,rgba(255,255,255,.1));box-shadow:0 30px 80px -20px rgba(0,0,0,.9),0 0 44px -12px color-mix(in srgb,var(--c) 55%,transparent)}
+.skill-card-head{display:flex;align-items:center;gap:10px}
+.skill-card-head .mono{font-size:9px;color:var(--c)}
+.skill-card-head .skill-count{margin-left:auto;color:var(--ink-3)}
+.skill-card .skill-dot{width:9px;height:9px;box-shadow:0 0 12px var(--c)}
+.skill-card h4{margin:12px 0 4px;font-size:22px;font-weight:700;letter-spacing:-.03em}
+.skill-card p{margin-bottom:14px;font-size:13px;color:var(--ink-2)}
+.skill-card ul{list-style:none;display:grid;grid-template-columns:1fr 1fr;gap:6px}
+.skill-card li{padding:7px 10px;border-radius:8px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.07);font-size:13px;opacity:0;transform:translateY(6px);animation:skillIn .45s cubic-bezier(.2,.8,.2,1) forwards;animation-delay:calc(var(--i) * 55ms + 80ms)}
+@keyframes skillIn{to{opacity:1;transform:none}}
+.skill-used{display:flex;flex-wrap:wrap;align-items:center;gap:6px;margin-top:14px;padding-top:12px;border-top:1px solid rgba(255,255,255,.08)}
+.skill-used .mono{margin-right:4px;font-size:9px}
+.skill-used span:not(.mono){padding:3px 9px;border-radius:999px;background:color-mix(in srgb,var(--c) 18%,transparent);font-size:11px}
+
+/* education: degree, school, awards & certificates */
+#education{padding:12vh 0 10vh}
+.edu-grid{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(0,1fr);gap:clamp(30px,6vw,90px);align-items:start;margin-top:12px}
+.degree{display:flex;justify-content:space-between;align-items:flex-end;gap:24px;padding:28px 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.degree h3{font-weight:700;font-size:clamp(22px,2.4vw,30px);letter-spacing:-.03em;line-height:1.1;margin:10px 0 6px}
+.degree p{color:var(--ink-2)}
+.degree-score{display:flex;flex-direction:column;align-items:flex-end;gap:8px;flex:none}
+.stat-num{font-weight:300;line-height:.9;letter-spacing:-.04em;font-variant-numeric:tabular-nums}
+.degree-score .stat-num{font-size:clamp(48px,5vw,72px);color:var(--warm)}
+.school{list-style:none}
+.school li{display:grid;grid-template-columns:130px 1fr auto;gap:16px;align-items:center;padding:16px 0;border-bottom:1px solid var(--line)}
+.school strong{display:block;font-weight:600}
+.school li>span:nth-child(2)>span{color:var(--ink-2);font-size:14px}
+.school-score{font-family:var(--mono);font-size:13px;letter-spacing:.08em}
+.edu-grid .case-h{margin:0 0 16px}
+.certs{list-style:none;border-top:1px solid var(--line)}
+.certs a{display:flex;justify-content:space-between;align-items:center;gap:14px;padding:18px 0;border-bottom:1px solid var(--line)}
+.certs .mono{display:block;font-size:9px;color:var(--warm);margin-bottom:6px}
+.certs strong{display:block;font-weight:600;font-size:16px}
+.cert-detail{display:block;color:var(--ink-2);font-size:13px;margin-top:2px}
+.certs svg{width:16px;height:16px;flex:none;color:var(--ink-3);transition:transform .3s,color .3s}
+.certs a:hover svg{color:var(--warm);transform:translate(2px,-2px)}

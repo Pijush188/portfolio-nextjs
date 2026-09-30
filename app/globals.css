@@ -4,7 +4,10 @@
 @import "../styles/loader.css";
 @import "../styles/chrome.css";
 @import "../styles/sections.css";
+@import "../styles/hero.css";
 @import "../styles/work.css";
+@import "../styles/experience.css";
+@import "../styles/profile.css";
 @import "../styles/contact.css";
 @import "../styles/detail.css";
 @import "../styles/motion.css";

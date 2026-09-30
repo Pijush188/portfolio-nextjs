@@ -18,13 +18,16 @@ styles/             the original stylesheet split by concern, imported in order
 components/
   PortfolioProvider shared UI state: ready, menu, hovered project, detail panel
   layout/           Loader, Topbar, MenuOverlay, SectionDots, Cursor, Backdrop
-  sections/         Hero, About, Work, Contact, Footer
+  sections/         Hero, About, Experience, Projects, Skills, Education, Contact, Footer
+  skills/           SkillRow, SkillPeek (hover card)
+  experience/       CaseItem, CasePeek, CaseDetail, Pipeline, CaseVisual
+    visuals/        canvas simulations: topology (RCA), pid (tile scan), chat (sessions)
   work/             ProjectItem, Peek (hover preview), ProjectDetail (panel)
-  scene/            Scene (canvas) + createScene (three.js, lazy-loaded chunk) + sun shader
+  scene/            Scene + createScene (three.js, lazy chunk): hero galaxy, then one world per section (worlds.ts), star at contact
   ui/               BrowserWindow, icons, ExternalLink
-lib/                project data, site links, pointer store, scroller, media/reveal hooks
+lib/                cases, projects, profile (skills/education), site links, hooks
 public/projects/    project screenshots (previously inlined as base64)
 ```
 
-Edit projects in `lib/projects.ts`; the contact email lives in `lib/site.ts`
-(still the `your.email@example.com` placeholder from the original).
+Content lives in `lib/`: case studies in `cases.ts`, side projects in `projects.ts`,
+roles/skills/education in `profile.ts`, links in `site.ts`.

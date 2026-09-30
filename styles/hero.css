@@ -1,0 +1,10 @@
+/* hero additions: role kicker + rotating word */
+.hero-kicker{display:block;margin-bottom:26px;opacity:0;transition:opacity 1s .45s}
+.ready .hero-kicker{opacity:1}
+.rot{display:inline-block;position:relative;vertical-align:top;overflow:hidden;padding-bottom:.1em;margin-bottom:-.1em;text-align:left;transition:width .6s cubic-bezier(.2,.8,.2,1)}
+.rot>[aria-hidden]{position:absolute;left:0;top:0;white-space:nowrap;color:var(--warm);transform:translateY(115%);transition:transform .75s cubic-bezier(.2,.8,.2,1)}
+.rot>.cur{position:relative;transform:none}
+.rot>.prev{transform:translateY(-115%)}
+.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}
+
+.about-cta.btns{margin-top:30px;gap:10px}

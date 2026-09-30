@@ -17,9 +17,9 @@ const mono = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Pijush Das — Frontend Developer",
+  title: "Pijush Das — Junior Data Scientist",
   description:
-    "Interactive portfolio of Pijush Das, a student frontend developer from Kolkata building React apps, scroll-driven clones and ML web apps.",
+    "Pijush Das is a Junior Data Scientist in Kolkata building LLM, knowledge-graph and computer-vision systems.",
 };
 
 export const viewport: Viewport = {

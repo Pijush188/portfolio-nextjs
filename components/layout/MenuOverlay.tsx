@@ -2,13 +2,9 @@
 
 import { usePortfolio } from "@/components/PortfolioProvider";
 import { ExternalLink } from "@/components/ui/ExternalLink";
-import { GITHUB } from "@/lib/site";
+import { EMAIL, GITHUB, LINKEDIN, SECTIONS } from "@/lib/site";
 
-const NAV = [
-  { href: "#about", label: "About" },
-  { href: "#work", label: "Work" },
-  { href: "#contact", label: "Contact" },
-];
+const NAV = SECTIONS.filter((s) => s.id !== "hero");
 
 export function MenuOverlay() {
   const { menuOpen, toggleMenu } = usePortfolio();
@@ -17,16 +13,16 @@ export function MenuOverlay() {
     <div id="menu" aria-hidden={!menuOpen}>
       <nav>
         {NAV.map((n, i) => (
-          <a key={n.href} href={n.href} onClick={close}>
+          <a key={n.id} href={`#${n.id}`} onClick={close}>
             {n.label}
             <sup>0{i + 1}</sup>
           </a>
         ))}
       </nav>
       <div className="menu-links mono">
+        <ExternalLink href={LINKEDIN}>LinkedIn</ExternalLink>
         <ExternalLink href={GITHUB}>GitHub</ExternalLink>
-        <ExternalLink href="https://apple-vision-ui.vercel.app/">Vision Pro UI</ExternalLink>
-        <ExternalLink href="https://you-tube-clone-iota-six.vercel.app/">VidTube</ExternalLink>
+        <a href={EMAIL}>Email</a>
       </div>
     </div>
   );
